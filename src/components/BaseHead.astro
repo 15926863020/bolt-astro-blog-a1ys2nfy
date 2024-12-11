@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import { generateCanonicalURL } from '../utils/seo';
+import MetaTags from './seo/MetaTags.astro';
+import FontPreload from './seo/FontPreload.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const canonicalURL = generateCanonicalURL(Astro.url.pathname, Astro.site);
+const { title, description, image } = Astro.props;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Font preloads -->
+<FontPreload />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- SEO -->
+<MetaTags
+  title={title}
+  description={description}
+  image={image}
+  url={Astro.url}
+/>
